@@ -3,17 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscripción a Cursos</title>
+    <title>Registro de Inscripción</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; /* Color de fondo suave */
+        }
+        .container {
+            background-color: #ffffff; /* Fondo blanco para el contenedor */
+            padding: 30px;
+            border-radius: 8px; /* Bordes redondeados */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+        }
+        .banner {
+            background-color: #007bff; /* Color del banner */
+            color: white; /* Color del texto del banner */
+            padding: 15px; /* Espaciado dentro del banner */
+            text-align: center; /* Centra el texto */
+            border-radius: 8px 8px 0 0; /* Bordes redondeados arriba */
+            position: relative; /* Posicionamiento relativo para el uso de imágenes */
+        }
+        .banner img {
+            position: absolute; /* Posicionamiento absoluto para la imagen */
+            right: 20px; /* Ajusta el espacio desde la derecha */
+            top: 50%; /* Centra verticalmente */
+            transform: translateY(-50%); /* Corrige el desplazamiento vertical */
+            height: 60px; /* Ajusta la altura de la imagen */
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .error {
+            color: red; /* Color de los mensajes de error */
+            margin-bottom: 10px; /* Espaciado entre los errores */
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
-        <h1>Inscripción a Cursos</h1>
+        <div class="banner">
+            <h2>Pre-Ofertas Ciclo 2025</h2>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIxzt4m8Gs0-83ei8LZkKoJ-ESOIjF_SYiPQ&s" alt="Descripción de la imagen">
+        </div>
+        
+        <h3 class="text-center mt-3">¿Qué te gustaría estudiar en el próximo año?</h3>
+
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Inscribirse</button>
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="error">{{ error }}</div>
+                {% endfor %}
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">Enviar</button>
         </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
