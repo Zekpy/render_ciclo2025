@@ -24,3 +24,6 @@ def inscripcion_view(request):
 
 def gracias_view(request):
     return render(request, 'formulario/gracias.html')
+
+def inicio_views(request):
+    return render (request,'formulario/index.html')
