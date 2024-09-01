@@ -7,60 +7,158 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa; /* Color de fondo suave */
+            background-color: #f8f9fa;
         }
         .container {
-            background-color: #ffffff; /* Fondo blanco para el contenedor */
+            background-color: #ffffff;
             padding: 30px;
-            border-radius: 8px; /* Bordes redondeados */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
         }
         .banner {
-            background-color: #007bff; /* Color del banner */
-            color: white; /* Color del texto del banner */
-            padding: 15px; /* Espaciado dentro del banner */
-            text-align: center; /* Centra el texto */
-            border-radius: 8px 8px 0 0; /* Bordes redondeados arriba */
-            position: relative; /* Posicionamiento relativo para el uso de imágenes */
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 8px 8px 0 0;
+            position: relative;
         }
         .banner img {
-            position: absolute; /* Posicionamiento absoluto para la imagen */
-            right: 20px; /* Ajusta el espacio desde la derecha */
-            top: 50%; /* Centra verticalmente */
-            transform: translateY(-50%); /* Corrige el desplazamiento vertical */
-            height: 60px; /* Ajusta la altura de la imagen */
+            position: absolute;
+            right: 0px;
+            top: 400%;
+            transform: translateY(-50%);
+            height: 130px;
         }
         h1 {
             margin-bottom: 20px;
+            text-align: center;
         }
-        .error {
-            color: red; /* Color de los mensajes de error */
-            margin-bottom: 10px; /* Espaciado entre los errores */
+        .category-container {
+            margin-bottom: 30px;
+        }
+        .category-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #007bff;
+            text-align: center;
+        }
+        ul.course-list {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        ul.course-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        ul.course-list li:last-child {
+            border-bottom: none;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-control {
+            border-radius: 4px;
+            box-shadow: none;
+            border: 1px solid #ced4da;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        label{
+            text-align: center;
+            display: block;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+    <div class="container">
         <div class="banner">
-            <h2>Pre-Ofertas Ciclo 2025</h2>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIxzt4m8Gs0-83ei8LZkKoJ-ESOIjF_SYiPQ&s" alt="Descripción de la imagen">
+            <h2>Centro de formación Profesional 425
+                Virrey Del Pino
+            </h2>
         </div>
-        
-        <h3 class="text-center mt-3">¿Qué te gustaría estudiar en el próximo año?</h3>
 
+        <h1 class="text-center mb-4">¿Que te gustaía estudiar en el 2025?</h1>
+        
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="error">{{ error }}</div>
-                {% endfor %}
+            
+            <div class="form-group">
+                <label for="{{ form.nombre.id_for_label }}">{{ form.nombre.label }}</label>
+                {{ form.nombre }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.apellido.id_for_label }}">{{ form.apellido.label }}</label>
+                {{ form.apellido }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.celular.id_for_label }}">{{ form.celular.label }}</label>
+                {{ form.celular }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+            </div>
+            <div class="form-group">
+                <label for="{{ form.edad.id_for_label }}">{{ form.edad.label }}</label>
+                {{ form.edad }}
+            </div>
+
+            {% for categoria in categorias %}
+                <div class="category-container">
+                    <div class="category-title">{{ categoria.nombre }}</div>
+                    <ul class="course-list">
+                        {% for curso in categoria.curso_set.all %}
+                            <li>
+                                <label>
+                                    <input type="checkbox" name="cursos" value="{{ curso.id }}" class="course-checkbox">
+                                    {{ curso.nombre }}
+                                </label>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endfor %}
-            <button type="submit" class="btn btn-primary">Enviar</button>
+
+            <button type="submit" class="btn btn-primary btn-block">Enviar</button>
         </form>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.course-checkbox');
+            const maxSelection = 2;
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const checkedCheckboxes = document.querySelectorAll('.course-checkbox:checked');
+                    if (checkedCheckboxes.length > maxSelection) {
+                        this.checked = false;
+                        alert('Solo puedes seleccionar hasta 2 cursos.');
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

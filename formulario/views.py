@@ -1,18 +1,25 @@
 from django.shortcuts import render, redirect
 from .forms import InscripcionForm
+from cursos.models import Categoria  # Importar la categoría
 
 def inscripcion_view(request):
     if request.method == 'POST':
         form = InscripcionForm(request.POST)
         if form.is_valid():
-            inscripcion = form.save(commit=False)  # No guardar aún
-            inscripcion.save()  # Guarda la inscripción
-            form.save_m2m()  # Guarda la relación de ManyToMany
-            return redirect('gracias')  # Redirige a una página de agradecimiento
+            inscripcion = form.save(commit=False)
+            inscripcion.save()
+            form.save_m2m()
+            return redirect('gracias')
     else:
         form = InscripcionForm()
 
-    return render(request, 'formulario/inscripcion.html', {'form': form})
+    categorias = Categoria.objects.all()  # Obtener todas las categorías
+    context = {
+        'form': form,
+        'categorias': categorias  # Pasar las categorías al template
+    }
+    return render(request, 'formulario/inscripcion.html', context)
+
 
 
 def gracias_view(request):
