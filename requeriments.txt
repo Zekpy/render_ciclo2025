@@ -1,4 +1,0 @@
-Django==5.0.3
-gunicorn==21.1.0
-matplotlib==3.7.1  # Para la generación de gráficos
-# Agrega aquí otras dependencias que estés usando en tu proyecto
