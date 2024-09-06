@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Inscripción</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f8f9fa;
@@ -28,31 +28,12 @@
             margin-bottom: 20px;
             text-align: center;
         }
-        .category-container {
-            margin-bottom: 30px;
-        }
-        .category-title {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: #007bff;
-            text-align: center;
-        }
-        .accordion .card {
-            margin-bottom: 20px;
-        }
         .course-card {
             margin-bottom: 20px;
         }
         .form-group {
             margin-bottom: 20px;
             text-align: center;
-        }
-        .form-control {
-            border-radius: 4px;
-            box-shadow: none;
-            border: 1px solid #ced4da;
-            max-width: 100%;
-            margin: 0 auto;
         }
         .btn-primary {
             background-color: #007bff;
@@ -148,8 +129,6 @@
 
     <!-- Bootstrap JS (necesario para la funcionalidad del acordeón) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const checkboxes = document.querySelectorAll('.course-checkbox');
